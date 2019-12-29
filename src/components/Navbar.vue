@@ -4,7 +4,7 @@
         <v-app-bar app>
             <v-app-bar-nav-icon class="grey--text" @click="drawer = ! drawer"></v-app-bar-nav-icon>
             <v-toolbar-title>
-                <span class="font-weight-light grey--text">AlienationX</span>
+                <span class="font-weight-light grey--text">Data</span>
                 <span>Todo</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -19,11 +19,11 @@
             <v-list>
                 <v-row align="center" justify="center">
                     <v-avatar size="80">
-                        <img src="/avatar-2.jpg" alt="avatar">
+                        <img src="/z.jpg" alt="avatar">
                     </v-avatar>
                 </v-row>
                 <v-row align="center" justify="center" class="py-3">
-                    <div class=".headline .font-weight-light text-center">Roger</div>
+                    <div class=".headline .font-weight-light text-center">TODO</div>
                 </v-row>
                 <v-divider></v-divider>
 

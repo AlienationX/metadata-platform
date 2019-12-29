@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import axios from 'axios'
+import '@mdi/font/css/materialdesignicons.min.css'
+// import 'get-google-fonts'
+
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
+
 
 Vue.config.productionTip = false
 
