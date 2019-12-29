@@ -1,20 +1,79 @@
 <template>
     <v-container fluid color="white">
-        <v-row class="px-2 py-0">
-            <v-col cols="3">
+
+        <v-row style="background-color:white;height:auto" class="elevation-1 mx-0">
+            <v-col cols="12" sm="6" md="4">
                 <v-autocomplete
                         label="请选择"
                         :items="components"
                         dense
-                        outlined
+                        solo
                 ></v-autocomplete>
             </v-col>
-            <v-col>
-                <v-btn class="primary"><v-icon left>mdi-plus-circle-outline</v-icon>Add Column</v-btn>
-                <v-btn text class="error--text"><v-icon left>mdi-delete-circle-outline</v-icon>Disable Table</v-btn>
+            <v-spacer></v-spacer>
+            <v-col cols="12" sm="6" md="4">
+                <v-dialog v-model="dialog" persistent max-width="800px">
+                    <template v-slot:activator="{ on }">
+                        <v-btn color="primary float-right" dark v-on="on">
+                            <v-icon left>mdi-plus-circle-outline</v-icon>
+                            Add Column
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-title class="headline">
+                            <span class="headline">Add Column</span>
+                        </v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" sm="6" md="4" v-for="item in diaglogItems"
+                                           :key="item.value">
+                                        <v-text-field
+                                                :label="item.text"
+                                                persistent-hint
+                                                required
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-checkbox
+                                                v-model="checkbox"
+                                                label="是否主键"
+                                                color="primary"
+                                        ></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-checkbox
+                                                v-model="checkbox"
+                                                label="是否必填"
+                                                color="primary"
+                                        ></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-textarea
+                                                label="备注"
+                                                rows="2"
+                                                value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                                                hint="Hint text"
+                                        ></v-textarea>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                            <small class="red--text">*indicates required field</small>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
+                            <v-btn color="green darken-1" text @click="save">Save</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-col>
-        </v-row>
 
+        </v-row>
 
         <v-data-table
                 :headers="headers"
@@ -27,6 +86,32 @@
                 multi-sort
                 class="elevation-1"
         >
+            <!--<template v-slot:top>-->
+            <!--    <v-toolbar flat color="white">-->
+            <!--        <v-row align="center">-->
+            <!--            <v-col cols="12" sm="6" md="4">-->
+            <!--                <div class="pt-10">-->
+            <!--                    <v-autocomplete-->
+            <!--                            label="请选择"-->
+            <!--                            :items="components"-->
+            <!--                            dense-->
+            <!--                            solo-->
+            <!--                    ></v-autocomplete>-->
+            <!--                </div>-->
+            <!--            </v-col>-->
+            <!--            &lt;!&ndash;<v-divider&ndash;&gt;-->
+            <!--            &lt;!&ndash;        class="mx-4"&ndash;&gt;-->
+            <!--            &lt;!&ndash;        inset&ndash;&gt;-->
+            <!--            &lt;!&ndash;        vertical&ndash;&gt;-->
+            <!--            &lt;!&ndash;&gt;</v-divider>&ndash;&gt;-->
+            <!--            <v-spacer></v-spacer>-->
+            <!--            <v-btn color="primary float-right" dark>-->
+            <!--                <v-icon left>mdi-plus-circle-outline</v-icon>-->
+            <!--                Add Column-->
+            <!--            </v-btn>-->
+            <!--        </v-row>-->
+            <!--    </v-toolbar>-->
+            <!--</template>-->
             <template v-slot:item.status="{ item }">
                 <v-chip :color="getColor(item.status)" dark>{{ item.status }}</v-chip>
             </template>
@@ -34,19 +119,36 @@
                 <v-icon
                         small
                         class="mr-2"
-                        @click="editItem(item.column_name)"
+                        @click="editItem(item)"
                 >
                     mdi-square-edit-outline
                 </v-icon>
                 <v-icon
                         small
-                        @click="deleteItem(item.column_name)"
+                        @click="deleteItem(item)"
                 >
                     mdi-delete
                 </v-icon>
             </template>
         </v-data-table>
 
+        <v-snackbar
+                v-model="snackbar"
+                right
+                dark
+                color="red darken-2"
+                :multi-line="true"
+                :timeout="timeout"
+        >
+            Add column success.
+            <v-btn
+                    dark
+                    text
+                    @click="snackbar = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -59,12 +161,17 @@
                     x: 0,
                     y: 0,
                 },
+                dialog: false,
+                snackbar: false,
+                timeout: 3000,
+                checkbox: false,
                 components: [
                     'Autocompletes', 'Comboboxes', 'Forms', 'Inputs', 'Overflow Buttons', 'Selects', 'Selection Controls', 'Sliders', 'Textareas', 'Text Fields',
                 ],
                 loading: 'false',
                 search: '',
                 headers: [
+                    {text: 'Actions', value: 'action', sortable: false},
                     {
                         text: '表类型',
                         align: 'left',
@@ -426,6 +533,11 @@
                 ],
             }
         },
+        computed: {
+            diaglogItems: function () {
+                return this.headers;
+            }
+        },
         mounted() {
             this.onResize()
         },
@@ -446,6 +558,10 @@
             deleteItem(input) {
                 // eslint-disable-next-line no-console
                 console.log(input);
+            },
+            save() {
+                this.snackbar = true;
+                this.dialog = false;
             }
         },
     }

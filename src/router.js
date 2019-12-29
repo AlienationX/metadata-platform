@@ -16,33 +16,37 @@ export default new Router({
     {
       path: '/metadata',
       name: 'metadata',
-      component: () => import('./views/Metadata.vue')
+      component: () => import('./views/metadata/Metadata.vue')
     },
     {
       path: '/edit',
       name: 'edit',
-      component: () => import('./views/Edit.vue')
+      component: () => import('./views/metadata/Edit.vue')
     },
     {
       path: '/mapping',
       name: 'mapping',
-      component: () => import('./views/Mapping.vue')
+      component: () => import('./views/metadata/Mapping.vue')
     },
     {
       path: '/compare',
       name: 'compare',
-      component: () => import('./views/Compare.vue')
+      component: () => import('./views/metadata/Compare.vue')
     },
     {
       path: '/upload',
       name: 'upload',
-      component: () => import('./views/Upload.vue')
+      component: () => import('./views/metadata/Upload.vue')
     },
-
     {
       path: '/log',
       name: 'log',
-      component: () => import('./views/Log.vue')
+      component: () => import('./views/metadata/Log.vue')
+    },
+    {
+      path: '/download',
+      name: 'download',
+      component: () => import('./views/template/Download.vue')
     },
     {
       path: '/about',

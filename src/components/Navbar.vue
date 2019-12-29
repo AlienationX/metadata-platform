@@ -14,8 +14,8 @@
                 <v-icon right>mdi-export</v-icon>
             </v-btn>
         </v-app-bar>
-        v-list-tile-title
-        <v-navigation-drawer v-model="drawer" app>
+
+        <v-navigation-drawer v-model="drawer" app width="300">
             <v-list>
                 <v-row align="center" justify="center">
                     <v-avatar size="80">
@@ -28,73 +28,27 @@
                 <v-divider></v-divider>
 
                 <v-subheader>REPORTS</v-subheader>
+                <v-list>
+                    <v-list-group v-for="item in items" :key="item.title" :prepend-icon="item.action"
+                                  v-model="item.active" no-action>
+                        <template v-slot:activator>
+                            <v-list-item-content>
+                                <v-list-item-title v-text="item.title"></v-list-item-title>
+                            </v-list-item-content>
+                        </template>
 
+                        <v-list-item v-for="subItem in item.items" :key="subItem.title" router :to="subItem.route">
 
-                <v-list-item router to="/" class="primary--text">
-                    <v-list-item-icon>
-                        <v-icon>mdi-clipboard-list-outline</v-icon>
-                    </v-list-item-icon>
-                    <v-list-tile-title class="text-uppercase">Todo</v-list-tile-title>
-                </v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title v-text="subItem.title"></v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-icon>
+                                <v-icon>{{ subItem.icon }}</v-icon>
+                            </v-list-item-icon>
+                        </v-list-item>
+                    </v-list-group>
+                </v-list>
 
-                <v-list-group prepend-icon="mdi-file-table-box-multiple-outline">
-                    <template v-slot:activator>
-                        <v-list-tile-title>Metadata</v-list-tile-title>
-                    </template>
-
-
-                    <v-list-item v-for="link in links" :key="link.text" router :to="link.route"
-                                 class="primary--text">
-                        <v-list-item-icon>
-                            <v-icon>{{ link.icon }}</v-icon>
-                        </v-list-item-icon>
-                        <v-list-tile-title class="text-uppercase">{{ link.text }}</v-list-tile-title>
-                    </v-list-item>
-                </v-list-group>
-
-
-                <!--                <v-list-item v-for="link in links" :key="link.text" router :to="link.route" class="primary&#45;&#45;text">-->
-                <!--                    <v-list-item-icon>-->
-                <!--                        <v-icon>{{ link.icon }}</v-icon>-->
-                <!--                    </v-list-item-icon>-->
-                <!--                    <v-list-tile-title class="text-uppercase">{{ link.text }}</v-list-tile-title>-->
-                <!--                </v-list-item>-->
-
-
-                <!--                <v-list-group prepend-icon="mdi-account">-->
-                <!--                    <template v-slot:activator>-->
-                <!--                        <v-list-tile-title>Users</v-list-tile-title>-->
-                <!--                    </template>-->
-
-                <!--                    <v-list-group no-action sub-group value="true">-->
-                <!--                        <template v-slot:activator>-->
-                <!--                            <v-list-tile-title>-->
-                <!--                                <v-list-tile-title>Admin</v-list-tile-title>-->
-                <!--                            </v-list-tile-title>-->
-                <!--                        </template>-->
-
-                <!--                        <v-list-item v-for="(admin, i) in admins" :key="i" link>-->
-                <!--                            <v-list-tile-title v-text="admin[0]"></v-list-tile-title>-->
-                <!--                            <v-list-item-icon>-->
-                <!--                                <v-icon v-text="admin[1]"></v-icon>-->
-                <!--                            </v-list-item-icon>-->
-                <!--                        </v-list-item>-->
-                <!--                    </v-list-group>-->
-
-                <!--                    <v-list-group sub-group no-action>-->
-                <!--                        <template v-slot:activator>-->
-                <!--                            <v-list-tile-title>-->
-                <!--                                <v-list-tile-title>Actions</v-list-tile-title>-->
-                <!--                            </v-list-tile-title>-->
-                <!--                        </template>-->
-                <!--                        <v-list-item v-for="(crud, i) in cruds" :key="i">-->
-                <!--                            <v-list-tile-title v-text="crud[0]"></v-list-tile-title>-->
-                <!--                            <v-list-item-action>-->
-                <!--                                <v-icon v-text="crud[1]"></v-icon>-->
-                <!--                            </v-list-item-action>-->
-                <!--                        </v-list-item>-->
-                <!--                    </v-list-group>-->
-                <!--                </v-list-group>-->
             </v-list>
         </v-navigation-drawer>
 
@@ -106,6 +60,71 @@
         data() {
             return {
                 drawer: false,
+                items: [
+                    {
+                        action: 'mdi-clipboard-list-outline',
+                        title: 'Todo',
+                        items: [
+                            {title: 'Task', icon: 'mdi-format-list-checks', route: '/'},
+                        ],
+                    },
+                    {
+                        action: 'mdi-layers-triple-outline',
+                        title: 'Metadata',
+                        // active: true,
+                        items: [
+                            {title: "查询", icon: "mdi-playlist-check", route: "/metadata"},
+                            {title: "映射", icon: "mdi-alpha-m-box-outline", route: "/mapping"},
+                            {title: "单表操作", icon: "mdi-file-edit-outline", route: "/edit"},
+                            {title: "表结构对比", icon: "mdi-tumblr-reblog", route: "/compare"},
+                            {title: "上传", icon: "mdi-cloud-upload-outline", route: "/upload"},
+                            {title: "操作日志", icon: "mdi-math-log", route: "/log"},
+                        ],
+                    },
+                    {
+                        action: 'mdi-file-download-outline',
+                        title: 'Template',
+                        // active: true,
+                        items: [
+                            {title: "模板下载", icon: "mdi-cloud-download-outline", route: "/download"},
+                        ],
+                    },
+                    {
+                        action: 'mdi-leaf-maple',
+                        title: 'Education',
+                        items: [
+                            {title: 'List Item'},
+                        ],
+                    },
+                    {
+                        action: 'mdi-leaf',
+                        title: 'Family',
+                        items: [
+                            {title: 'List Item'},
+                        ],
+                    },
+                    {
+                        action: 'mdi-chart-multiple',
+                        title: 'Health',
+                        items: [
+                            {title: 'List Item'},
+                        ],
+                    },
+                    {
+                        action: 'mdi-windows',
+                        title: 'Office',
+                        items: [
+                            {title: 'List Item'},
+                        ],
+                    },
+                    {
+                        action: 'mdi-settings',
+                        title: 'Setting',
+                        items: [
+                            {title: 'List Item'},
+                        ],
+                    },
+                ],
                 links: [
                     // {icon: "mdi-clipboard-list-outline", text: "Todo", route: "/"},
                     {icon: "mdi-playlist-check", text: "查询", route: "/metadata"},

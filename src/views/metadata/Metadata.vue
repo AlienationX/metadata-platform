@@ -1,48 +1,8 @@
 <template>
-    <div>
-        <!--        <v-form>-->
-        <!-- <v-container>-->
-        <!--      <v-row class="px-2 py-0">-->
-        <!--        <v-col cols="3">-->
-        <!--          <v-autocomplete-->
-        <!--                  label="表中文名称"-->
-        <!--                  :items="components"-->
-        <!--                  dense-->
-        <!--                  outlined-->
-        <!--                  multiple-->
-        <!--          ></v-autocomplete>-->
-        <!--        </v-col>-->
-        <!--        <v-col cols="3">-->
-        <!--          <v-autocomplete-->
-        <!--                  label="表英文名称"-->
-        <!--                  :items="components"-->
-        <!--                  dense-->
-        <!--                  multiple-->
-        <!--          ></v-autocomplete>-->
-        <!--        </v-col>-->
-        <!--        <v-col cols="3">-->
-        <!--          <v-autocomplete-->
-        <!--                  label="字段中文名称"-->
-        <!--                  :items="components"-->
-        <!--                  dense-->
-        <!--                  multiple-->
-        <!--          ></v-autocomplete>-->
-        <!--        </v-col>-->
-        <!--        <v-col cols="3">-->
-        <!--          <v-autocomplete-->
-        <!--                  label="字段英文名称"-->
-        <!--                  :items="components"-->
-        <!--                  dense-->
-        <!--          ></v-autocomplete>-->
-        <!--        </v-col>-->
-
-        <!--      </v-row>-->
-
-        <!-- </v-container>-->
-        <!--        </v-form>-->
+    <v-container fluid color="white">
 
         <v-row>
-            <v-col cols="11">
+            <v-col cols="12" md="10">
                 <v-text-field
                         v-model="search"
                         label="Search"
@@ -58,8 +18,9 @@
                 <!-- ></v-text-field>-->
             </v-col>
 
-            <v-col cols="1">
-                <v-btn class="primary" tile>下载</v-btn>
+            <v-col cols="12" md="2">
+                <v-btn class="primary float-right">
+                    <v-icon left>mdi-arrow-down-circle-outline</v-icon>Download</v-btn>
             </v-col>
         </v-row>
 
@@ -96,7 +57,7 @@
             </template>
         </v-data-table>
 
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -120,7 +81,7 @@
                         value: 'table_type',
                         fixed: true
                     },
-                    {text: '表英文名称', value: 'table_name', width: "100px", fixed: true},
+                    {text: '表英文名称', value: 'table_name', width: "200px", fixed: true},
                     {text: '表中文名称', value: 'table_name_cn', width: "200px", fixed: true},
                     {text: '字段序号', value: 'column_order', width: "100px"},
                     {text: '字段英文名称', value: 'column_name', width: "200px", sortable: false},

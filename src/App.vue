@@ -2,7 +2,7 @@
   <v-app>
     <Navbar/>
 
-    <v-content>
+    <v-content class="ma-2">
       <!-- <HelloWorld/> -->
       <router-view></router-view>
     </v-content>

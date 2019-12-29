@@ -1,7 +1,7 @@
 <template>
     <v-container fluid color="white">
-        <v-row align="center">
-            <v-col class="d-flex" cols="12" sm="6">
+        <v-row>
+            <v-col cols="12" sm="6">
                 <v-autocomplete
                         v-model="tb1"
                         :items="tables"
@@ -11,7 +11,7 @@
                 ></v-autocomplete>
             </v-col>
 
-            <v-col class="d-flex" cols="12" sm="6">
+            <v-col cols="12" sm="6">
                 <v-autocomplete
                         v-model="tb2"
                         :items="tables"
@@ -26,7 +26,7 @@
                 :items="items"
                 :sort-by="[]"
                 :sort-desc="[]"
-                :loading="loading"
+                ode
                 loading-text="Loading... Please wait"
                 fixed-header
                 class="elevation-1"
