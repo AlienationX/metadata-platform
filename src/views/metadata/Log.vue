@@ -79,7 +79,7 @@
 <script>
     export default {
         data: () => ({
-            dialog: false,
+            editDialog: false,
             headers: [
                 { text: 'Actions', value: 'action', sortable: false },
                 {

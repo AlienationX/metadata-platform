@@ -15,7 +15,7 @@
             </v-btn>
         </v-app-bar>
 
-        <v-navigation-drawer v-model="drawer" app width="300">
+        <v-navigation-drawer v-model="drawer" app >
             <v-list>
                 <v-row align="center" justify="center">
                     <v-avatar size="80">
@@ -57,6 +57,7 @@
 
 <script>
     export default {
+        name: 'NavBar',
         data() {
             return {
                 drawer: false,
@@ -87,6 +88,7 @@
                         // active: true,
                         items: [
                             {title: "模板下载", icon: "mdi-cloud-download-outline", route: "/download"},
+                            // {title: "示例数据维护", icon: "mdi-cloud-download-outline", route: "/manage"},
                         ],
                     },
                     {

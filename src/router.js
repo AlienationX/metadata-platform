@@ -49,6 +49,11 @@ export default new Router({
       component: () => import('./views/template/Download.vue')
     },
     {
+      path: '/manage',
+      name: 'manage',
+      component: () => import('./views/template/Manage.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

@@ -2,26 +2,7 @@
     <v-container fluid color="white">
         <v-row>
             <v-col cols="12" sm="6">
-                <v-autocomplete
-                        v-model="tb"
-                        :items="items"
-                        label="请选择"
-                        dense
-                        solo
-                ></v-autocomplete>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" sm="6" md="4">
-                <v-btn class="purple darken-1"
-                       rounded
-                       dark
-                       text
-                       @click="downFile"
-                >
-                    模板下载
-                </v-btn>
-                <v-btn text rounded color="primary">示例数据下载</v-btn>
+              <p>示例数据维护界面</p>
             </v-col>
         </v-row>
 

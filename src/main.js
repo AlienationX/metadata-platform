@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 
 // axios默认配置
 // axios.defaults.timeout = 5000 // 请求超时
-axios.defaults.baseURL = 'http://192.168.0.104:5000/'
+axios.defaults.baseURL = 'http://localhost:5000/'
 axios.defaults.headers = {
     'content-type': 'application/json;charset=UTF-8',
     // 'token':'one'

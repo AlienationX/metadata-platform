@@ -26,7 +26,7 @@
                 :items="items"
                 :sort-by="[]"
                 :sort-desc="[]"
-                ode
+                :loading="loading"
                 loading-text="Loading... Please wait"
                 fixed-header
                 class="elevation-1"
@@ -43,6 +43,7 @@
         data: () => ({
             tb1: "",
             tb2: "",
+            loading: false,
             tables: [],
             headers: [
                 {text: '左表字段序号', value: 'tb1_column_order', width: "100px"},
@@ -58,6 +59,17 @@
             two_values: function () {
                 return [this.tb1, this.tb2];
             }
+        },
+        watch: {
+            two_values: function (val) {
+                if (val[0] !== "" && val[1] !== "") {
+                    this.loading = true;
+                    this.getCompareResult();
+                }
+            }
+        },
+        mounted() {
+            this.getTables();
         },
         methods: {
             getTables() {
@@ -81,19 +93,10 @@
                             // eslint-disable-next-line no-console
                             console.log(res.data.data.items);
                             this.items = res.data.data.items;
+                            this.loading = false;
                         }
                     )
             }
         },
-        mounted() {
-            this.getTables();
-        },
-        watch: {
-            two_values: function (val) {
-                if (val[0] !== "" && val[1] !== "") {
-                    this.getCompareResult();
-                }
-            }
-        }
     }
 </script>
